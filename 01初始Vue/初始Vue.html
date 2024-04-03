@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一次使用Vue</title>
+    <script src="../js/vue.min.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>Hello, {{name}}</h1>
+    </div>
+
+    <div class="test">
+        <h2>
+            {{name.toUpperCase()}}, {{age}}, {{1 + 2}}, {{Date.now()}}
+        </h2>
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+
+        new Vue({
+           //配置对象
+           el: '#root',// document.getElementById('root') //element el指定当前vue实例为哪一个容器服务，值通常为css选择器格式
+           data: {
+               //data用来存储数据，以后会用函数来表示
+               name: 'ypb',
+               age:21
+           }
+       });
+
+       new Vue({
+        el:'.test',
+        data: {
+            name: 'test',
+            age: 18,
+        }
+       })
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object.DefineProperty</title>
+    <script src="../js/vue.min.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        // Vue.config.productionTip = false;
+        let num = 18;
+        let person = {
+            name: 'ypb',
+            sex: 'women',
+        }
+
+        //console.log(person)
+
+        // 此时age是不可以枚举的
+        // 尝试往 person 中添加属性
+        
+        Object.defineProperty(person, 'age', {
+            //value: 18,
+            //enumerable: true, // 代表这个属性是可以枚举的
+            // writable: true, // 代表可以重写该属性 （控制属性是否被修改）
+            //configurable: true, // 控制属性是否可以被删除
+        
+            //当读取person的age属性时get属性就会被调用，且返回值就是age的值
+            //invoke property proxy映射数据代理
+            get: function () {
+                // 测试调用情况
+                console.log('@@@ get age');
+                // 此时age的值依赖的number的值
+                return num
+            },
+
+            //当修改person的age属性时set(setter)属性就会被调用，且会收到修改的具体值
+            // set(v) {
+            //     // 测试
+            //     console.log('change age');
+            //     number = v;
+            // }
+        });
+
+
+        for (var p in person) {
+            console.log('@@', person[p])
+        }
+
+        console.log(person)
+        
+
+    </script>
+    
+</body>
+</html>
