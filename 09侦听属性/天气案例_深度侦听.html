@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一次使用Vue</title>
+    <script src="../js/vue.min.js"></script>
+</head>
+<body>
+    <!--
+		深度监视：
+				(1).Vue中的watch默认不监测对象内部值的改变（一层）。
+				(2).配置deep:true可以监测对象内部值改变（多层）。
+		备注：
+				(1).Vue自身可以监测对象内部值的改变，但Vue提供的watch默认不可以(想让它可以则配置deep:true)！
+				(2).使用watch时根据数据的具体结构，决定是否采用深度监视。
+	-->
+
+    <div id="root">
+        <h1>今天天气 {{ info }}</h1>
+        <button @click="changeWeather">
+            切换天气
+        </button>
+
+        <br>
+        <br>
+        <h3>a的值为：{{numbers.a }} </h3>
+        <button @click="numbers.a++">点击a进行加一</button>
+        <h3>a的值为：{{numbers.b }} </h3>
+        <button @click="numbers.b++">点击b进行加一</button>
+
+        <h1>
+            测试vue自身监测数据属性
+            {{ numbers.d.e }}
+        </h1>
+
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                isHot: true,
+                numbers: {
+                    a: 0,
+                    b: 1,
+                    d: {
+                        e: 1,
+                    }
+                }
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热': '凉爽';
+                }
+            },
+            methods: {
+                changeWeather() {
+                    this.isHot = !this.isHot;
+                }
+            },
+            watch: {
+                'numbers.a': {
+                    handler() {
+                        console.log('a发生了变化');
+                    }
+                },
+                numbers: {
+                    deep: true,
+                    handler() {
+                        console.log('深度侦听发挥作用');
+                    }
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>

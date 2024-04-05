@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气案例</title>
+    <script src="../js/vue.min.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>今天的天气很 {{ info }}</h1>
+        <button @click="isHot = !isHot">使用计算属性切换</button>
+        <button @click="changeWeather">使用方法进行切换</button>
+    </div>
+   
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        new Vue({
+            el: '#root',
+            data: {
+                isHot: true,
+            },
+            // 计算属性
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉爽';
+                },
+            },
+            // 改变模板的方法
+            methods: {
+                changeWeather() {
+                    this.isHot = !this.isHot;
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>
